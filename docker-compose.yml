@@ -1,0 +1,42 @@
+version: "3.8"
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: orders
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: app_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  servicio-a:
+    build:
+      context: ./servicio-a
+      dockerfile: Dockerfile
+    container_name: servicio-a
+    depends_on:
+      - mysql-db
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/orders
+      SPRING_DATASOURCE_USERNAME: app_user
+      SPRING_DATASOURCE_PASSWORD: app_password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  servicio-b:
+    build:
+      context: ./servicio-b
+      dockerfile: Dockerfile
+    container_name: servicio-b
+    ports:
+      - "8081:8081"
+    environment:
+      SERVER_PORT: 8081
+
+volumes:
+  mysql-data:
