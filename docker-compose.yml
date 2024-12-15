@@ -13,11 +13,11 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
 
-  servicio-a:
+  order-microservice:
     build:
-      context: ./servicio-a
+      context: ./order-microservice
       dockerfile: Dockerfile
-    container_name: servicio-a
+    container_name: order-microservice
     depends_on:
       - mysql-db
     ports:
@@ -28,11 +28,11 @@ services:
       SPRING_DATASOURCE_PASSWORD: app_password
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
 
-  servicio-b:
+  payment-microservice:
     build:
-      context: ./servicio-b
+      context: ./payment-microservice
       dockerfile: Dockerfile
-    container_name: servicio-b
+    container_name: paymentr-microservice
     ports:
       - "8081:8081"
     environment:
@@ -40,3 +40,4 @@ services:
 
 volumes:
   mysql-data:
+    name: orders-mysql-data
