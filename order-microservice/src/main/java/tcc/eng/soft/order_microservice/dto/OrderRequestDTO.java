@@ -1,9 +1,5 @@
 package tcc.eng.soft.order_microservice.dto;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 
 public class OrderRequestDTO {
     private String customerName;

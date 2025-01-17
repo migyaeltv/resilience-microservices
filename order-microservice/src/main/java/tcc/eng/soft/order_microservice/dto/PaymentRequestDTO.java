@@ -1,27 +1,25 @@
 package tcc.eng.soft.order_microservice.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 
 public class PaymentRequestDTO {
-    private Long orderId;
+    private String orderId;
     private Double amount;
 
     public PaymentRequestDTO() {
 
     }
 
-    public PaymentRequestDTO(Long orderId, Double amount) {
+    public PaymentRequestDTO(String orderId, Double amount) {
         this.orderId = orderId;
         this.amount = amount;
     }
 
-    public Long getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 

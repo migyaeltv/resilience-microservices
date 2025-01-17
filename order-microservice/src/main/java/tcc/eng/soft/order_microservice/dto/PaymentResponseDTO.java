@@ -1,7 +1,5 @@
 package tcc.eng.soft.order_microservice.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 
 public class PaymentResponseDTO {

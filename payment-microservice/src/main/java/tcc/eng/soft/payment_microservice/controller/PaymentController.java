@@ -20,7 +20,7 @@ public class PaymentController {
     }
 
     @PostMapping
-    @CircuitBreaker(name = "paymentService", fallbackMethod = "fallbackPayment")
+  //  @CircuitBreaker(name = "paymentService", fallbackMethod = "fallbackPayment")
     public PaymentResponseDTO processPayment(@RequestBody PaymentRequestDTO request) {
         return paymentService.processPayment(request);
     }

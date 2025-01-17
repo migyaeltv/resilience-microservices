@@ -1,22 +1,20 @@
 package tcc.eng.soft.order_microservice.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 @Entity
+@Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     private String customerName;
     private Double amount;
     private String status; // PENDING, PAID, FAILED
 
-    public Order(Long id, String customerName, Double amount, String status) {
+    public Order(String id, String customerName, Double amount, String status) {
         this.id = id;
         this.customerName = customerName;
         this.amount = amount;
@@ -26,11 +24,11 @@ public class Order {
     public Order() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

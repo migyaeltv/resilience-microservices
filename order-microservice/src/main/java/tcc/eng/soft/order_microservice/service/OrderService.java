@@ -6,7 +6,6 @@ import tcc.eng.soft.order_microservice.dto.OrderResponseDTO;
 import tcc.eng.soft.order_microservice.dto.PaymentRequestDTO;
 import tcc.eng.soft.order_microservice.dto.PaymentResponseDTO;
 import tcc.eng.soft.order_microservice.repository.OrderRepository;
-import tcc.eng.soft.order_microservice.service.client.PaymentClient;
 
 
 

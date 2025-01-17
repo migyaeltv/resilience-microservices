@@ -1,4 +1,4 @@
-package tcc.eng.soft.order_microservice.service.client;
+package tcc.eng.soft.order_microservice.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;

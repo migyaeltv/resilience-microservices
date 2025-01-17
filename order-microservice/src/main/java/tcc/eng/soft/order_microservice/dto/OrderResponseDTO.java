@@ -1,15 +1,12 @@
 package tcc.eng.soft.order_microservice.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
 public class OrderResponseDTO {
-    private Long orderId;
+    private String orderId;
     private String customerName;
     private Double amount;
     private String status;
 
-    public OrderResponseDTO(Long orderId, String customerName, Double amount, String status) {
+    public OrderResponseDTO(String orderId, String customerName, Double amount, String status) {
         this.orderId = orderId;
         this.customerName = customerName;
         this.amount = amount;
@@ -19,11 +16,11 @@ public class OrderResponseDTO {
     public OrderResponseDTO() {
     }
 
-    public Long getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
