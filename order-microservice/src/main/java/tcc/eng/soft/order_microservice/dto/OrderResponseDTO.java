@@ -2,13 +2,13 @@ package tcc.eng.soft.order_microservice.dto;
 
 public class OrderResponseDTO {
     private String orderId;
-    private String customerName;
+    private String customerId;
     private Double amount;
     private String status;
 
-    public OrderResponseDTO(String orderId, String customerName, Double amount, String status) {
+    public OrderResponseDTO(String orderId, String customerId, Double amount, String status) {
         this.orderId = orderId;
-        this.customerName = customerName;
+        this.customerId = customerId;
         this.amount = amount;
         this.status = status;
     }
@@ -24,12 +24,12 @@ public class OrderResponseDTO {
         this.orderId = orderId;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     public Double getAmount() {

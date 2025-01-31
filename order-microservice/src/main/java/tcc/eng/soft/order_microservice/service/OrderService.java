@@ -22,7 +22,7 @@ public class OrderService {
 
     public OrderResponseDTO createOrder(OrderRequestDTO orderRequest) {
         Order order = new Order();
-        order.setCustomerName(orderRequest.getCustomerName());
+        order.setCustomerId(orderRequest.getCustomerId());
         order.setAmount(orderRequest.getAmount());
         order.setStatus("PENDING");
         orderRepository.save(order);
@@ -38,6 +38,6 @@ public class OrderService {
 
         orderRepository.save(order);
 
-        return new OrderResponseDTO(order.getId(), order.getCustomerName(), order.getAmount(), order.getStatus());
+        return new OrderResponseDTO(order.getId(), order.getCustomerId(), order.getAmount(), order.getStatus());
     }
 }

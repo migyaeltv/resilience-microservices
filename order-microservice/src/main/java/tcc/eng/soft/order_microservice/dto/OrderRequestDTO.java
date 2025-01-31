@@ -2,23 +2,23 @@ package tcc.eng.soft.order_microservice.dto;
 
 
 public class OrderRequestDTO {
-    private String customerName;
+    private String customerId;
     private Double amount;
 
-    public OrderRequestDTO(String customerName, Double amount) {
-        this.customerName = customerName;
+    public OrderRequestDTO(String customerId, Double amount) {
+        this.customerId = customerId;
         this.amount = amount;
     }
 
     public OrderRequestDTO() {
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     public Double getAmount() {

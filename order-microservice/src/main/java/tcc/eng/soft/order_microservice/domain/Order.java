@@ -10,13 +10,13 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    private String customerName;
+    private String customerId;
     private Double amount;
     private String status; // PENDING, PAID, FAILED
 
-    public Order(String id, String customerName, Double amount, String status) {
+    public Order(String id, String customerId, Double amount, String status) {
         this.id = id;
-        this.customerName = customerName;
+        this.customerId = customerId;
         this.amount = amount;
         this.status = status;
     }
@@ -32,12 +32,12 @@ public class Order {
         this.id = id;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     public Double getAmount() {
