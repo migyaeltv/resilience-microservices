@@ -57,6 +57,7 @@ services:
       MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: prometheus
       MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED: true
       MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: always
+      PAYMENT_SERVICE_URL: http://payment:8081
 
   grafana:
     image: grafana/grafana:latest

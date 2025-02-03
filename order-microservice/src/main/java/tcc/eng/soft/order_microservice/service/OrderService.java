@@ -1,4 +1,5 @@
 package tcc.eng.soft.order_microservice.service;
+import feign.FeignException;
 import org.springframework.stereotype.Service;
 import tcc.eng.soft.order_microservice.domain.Order;
 import tcc.eng.soft.order_microservice.dto.OrderRequestDTO;
@@ -27,13 +28,18 @@ public class OrderService {
         order.setStatus("PENDING");
         orderRepository.save(order);
 
-        try {
+        try{
             PaymentRequestDTO paymentRequest = new PaymentRequestDTO(order.getId(), order.getAmount());
             PaymentResponseDTO paymentResponse = paymentClient.processPayment(paymentRequest);
 
-            order.setStatus(paymentResponse.isSuccess() ? "PAID" : "FAILED");
-        } catch (Exception e) {
-            order.setStatus("FAILED");
+            // Actualizar el estado del pedido según la respuesta del pago
+            String paymentStatus = paymentResponse.getStatus().equals("PAID") ? "PAID" : "FAILED";
+            order.setStatus(paymentStatus);
+        }
+
+        catch (FeignException e) {
+            System.err.println("Error en PaymentService: " + e.getMessage());
+            order.setStatus("FAILED"); // Marcar la orden como fallida si PaymentService falla
         }
 
         orderRepository.save(order);

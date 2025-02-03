@@ -1,6 +1,8 @@
 package tcc.eng.soft.payment_microservice.controller;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,13 +21,13 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   //  @CircuitBreaker(name = "paymentService", fallbackMethod = "fallbackPayment")
-    public PaymentResponseDTO processPayment(@RequestBody PaymentRequestDTO request) {
+    public ResponseEntity<PaymentResponseDTO> processPayment(@RequestBody PaymentRequestDTO request) {
         return paymentService.processPayment(request);
     }
 
     public PaymentResponseDTO fallbackPayment(PaymentRequestDTO request, Throwable ex) {
-        return new PaymentResponseDTO(false, "Servicio no disponible temporalmente");
+        return new PaymentResponseDTO("PENDING", "Servicio no disponible temporalmente");
     }
 }

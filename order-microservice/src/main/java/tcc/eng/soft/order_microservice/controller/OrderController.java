@@ -1,18 +1,23 @@
 package tcc.eng.soft.order_microservice.controller;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import tcc.eng.soft.order_microservice.dto.*;
+import tcc.eng.soft.order_microservice.service.OrderService;
+import org.springframework.http.HttpStatus;
 import tcc.eng.soft.order_microservice.dto.OrderRequestDTO;
 import tcc.eng.soft.order_microservice.dto.OrderResponseDTO;
-import tcc.eng.soft.order_microservice.service.OrderService;
 
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
 
     private final OrderService orderService;
+    private PaymentResponseDTO paymentResponseDTO;
 
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
@@ -20,15 +25,13 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<OrderResponseDTO> createOrder(@RequestBody OrderRequestDTO orderRequest) {
-        try {
-            OrderResponseDTO response = orderService.createOrder(orderRequest);
+        OrderResponseDTO response = orderService.createOrder(orderRequest);
+
+        if (response.getStatus().equals("PAID")) {
             return ResponseEntity.ok(response);
-        } catch (ResponseStatusException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new OrderResponseDTO(null, orderRequest.getCustomerId(), orderRequest.getAmount(), "FAILED"));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new OrderResponseDTO(null, orderRequest.getCustomerId(), orderRequest.getAmount(), "ERROR: " + e.getMessage()));
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 }
+

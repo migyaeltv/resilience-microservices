@@ -3,23 +3,23 @@ package tcc.eng.soft.order_microservice.dto;
 
 
 public class PaymentResponseDTO {
-    private boolean success;
+    private String status;
     private String message;
 
-    public PaymentResponseDTO(boolean success, String message) {
-        this.success = success;
+    public PaymentResponseDTO(String success, String message) {
+        this.status = success;
         this.message = message;
     }
 
     public PaymentResponseDTO() {
     }
 
-    public boolean isSuccess() {
-        return success;
+    public String getStatus() {
+        return status;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getMessage() {
