@@ -47,7 +47,7 @@ O ambiente experimental é composto por **dois microserviços**:
 ## 📌 Como Executar o Projeto
 
 ### 🔹 **1. Clonar o Repositório**
-git clone https://github.com/seu-usuario/resilience-microservices.git
+git clone https://github.com/migyaeltv/resilience-microservices.git
 cd resilience-microservices
 
 ### 🔹 **2. Executar as aplicações**
