@@ -58,7 +58,9 @@ k6 run test.js
 
 
 ### 🔹 **4.Monitoramento**
-Grafana: http://localhost:3000
-Prometheus: http://localhost:9090
-Mais informações no arquivo docker-compose.yml
+Grafana: http://localhost:3000.
+
+Prometheus: http://localhost:9090.
+
+Mais informações no arquivo docker-compose.yml.
 
