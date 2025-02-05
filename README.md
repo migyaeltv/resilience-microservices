@@ -1,37 +1,64 @@
-RESILIENCE-MICROSERVICES
+# 📌 RESILIENCE-MICROSERVICES
 
-Projeto de pesquisa experimenta para tcc do curso mba de engenharia de software
-O objetivo deste trabalho é identificar as abordagens mais eficientes para tornar os sistemas de microserviços mais resilientes, fornecendo uma base teórica e prática para a adoção dessas técnicas em diferentes cenários. O estudo busca mensurar como cada uma dessas técnicas contribui para minimizar falhas e melhorar a estabilidade das aplicações, por meio de experimentos práticos e análise de métricas de desempenho, permitindo uma compreensão das melhores práticas para a construção de sistemas resilientes.
+Projeto de pesquisa experimental para o TCC do **MBA em Engenharia de Software**.
 
-O ambiente experimental está composto por dois microserviços:
+## 📌 Objetivo
 
-1- Serviço de Ordens: Responsável por receber requisições HTTP de ordens de compra e retornar dados simples. Atuará como ponto de entrada do sistema.
+O objetivo deste trabalho é identificar as abordagens mais eficientes para tornar os sistemas de **microserviços mais resilientes**, fornecendo uma base teórica e prática para a adoção dessas técnicas em diferentes cenários. O estudo busca mensurar como cada uma dessas técnicas contribui para **minimizar falhas e melhorar a estabilidade** das aplicações, por meio de experimentos práticos e análise de métricas de desempenho. O resultado esperado é uma melhor compreensão das **melhores práticas para a construção de sistemas resilientes**.
 
-2- Serviço de Pagamentos: Dependência do serviço de ordens, receberá as requisições e processará os pagamentos. O serviço por padrão tem uma porcentagem de falha de 10% das requisições. Também inclui a lógica de resiliência (Circuit Breaker, Retry e Exponential Backoff) e é submetido a falhas controladas durante os experimentos.
+---
 
-Camada de Aplicação
-Linguagem de Programação: Java 21.
-Framework: Spring Boot 3.4.0, utilizado para a construção dos microserviços.
-Ambiente: Docker será empregado para isolar e gerenciar os serviços e suas dependências durante a execução dos experimentos.
-Bibliotecas: Resilience4j, que oferece suporte à implementação dos padrões Circuit Breaker, Retry e Exponential Backoff.
+## 📌 Arquitetura do Sistema
 
-Camada de Dados
-Banco de Dados: MySQL para armazenamento dos dados.
-Ambiente: Docker para gerenciamento do banco de dados.
+O ambiente experimental é composto por **dois microserviços**:
 
-Ferramentas de Teste e Monitoramento
-Ferramenta de Teste de Carga: K6 será utilizado para gerar tráfego e simular cenários de falhas controladas nos microserviços.
+### 🛒 **1. Serviço de Ordens**
+- Responsável por receber requisições HTTP de ordens de compra e retornar dados simples.
+- Atua como o **ponto de entrada do sistema**.
 
-Monitoramento de Métricas:
-Prometheus para coleta de métricas de desempenho.
-Grafana para visualização dessas métricas em tempo real.
+### 💳 **2. Serviço de Pagamentos**
+- Dependência do Serviço de Ordens, processa os pagamentos das requisições recebidas.
+- Inclui **10% de falha controlada por padrão** para simulação de cenários reais.
+- Implementa os padrões de **Circuit Breaker, Retry e Exponential Backoff** usando a biblioteca **Resilience4j**.
+- É submetido a **falhas controladas** durante os experimentos.
+
+---
+
+## 📌 Tecnologias Utilizadas
+
+### 🔹 **Camada de Aplicação**
+- **Linguagem de Programação:** Java 21.
+- **Framework:** Spring Boot 3.4.0.
+- **Ambiente:** Docker (para isolamento e gerenciamento dos serviços).
+- **Bibliotecas:** Resilience4j (para implementação dos padrões de resiliência).
+
+### 🔹 **Camada de Dados**
+- **Banco de Dados:** MySQL.
+- **Gerenciamento:** Docker.
+
+### 🔹 **Ferramentas de Teste e Monitoramento**
+- **Teste de Carga:** [K6](https://k6.io/) (simulação de tráfego e falhas controladas).
+- **Monitoramento de Métricas:**
+  - **Prometheus** (coleta de métricas de desempenho).
+  - **Grafana** (visualização de métricas em tempo real).
+
+---
+
+## 📌 Como Executar o Projeto
+
+### 🔹 **1. Clonar o Repositório**
+git clone https://github.com/seu-usuario/resilience-microservices.git
+cd resilience-microservices
+
+### 🔹 **2. Executar as aplicações**
+docker compose up -d
+
+### 🔹 **3.Testes de carga**
+k6 run test.js
 
 
-Para executar as aplicações pode fazer um git clone na sua máquinae rodar na raiz do projeto o comando: docker compose up -d.
-
-Para executar testes de carga, uma vez as aplicações estejam rodando, executar o comando: k6 run test.js
-
-Para visualizar metricas no grafana: localhost:3000
-Para visualizar metricas no prometheus: localhost: 9090
-Mais informações no arquivo docker compose
+### 🔹 **4.Monitoramento**
+Grafana: http://localhost:3000
+Prometheus: http://localhost:9090
+Mais informações no arquivo docker-compose.yml
 
