@@ -8,10 +8,17 @@ services:
     ports:
       - "9090:9090"
     restart: always
-
     depends_on:
       - order
       - payment
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: "512M"
+        reservations:
+          cpus: "0.5"
+          memory: "256M"
 
   mysql-db:
     image: mysql:8.0
@@ -25,6 +32,14 @@ services:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+    deploy:
+      resources:
+        limits:
+          cpus: "3.0"
+          memory: "1.5G"
+        reservations:
+          cpus: "2.0"
+          memory: "1G"
 
   order:
     build:
@@ -35,7 +50,6 @@ services:
       - mysql-db
     ports:
       - "8080:8080"
-
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/orders
       - SPRING_DATASOURCE_USERNAME=app_user
@@ -44,6 +58,14 @@ services:
       - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=prometheus
       - MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED=true
       - MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS=always
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: "768M"
+        reservations:
+          cpus: "1.0"
+          memory: "512M"
 
   payment:
     build:
@@ -58,6 +80,14 @@ services:
       MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED: true
       MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: always
       PAYMENT_SERVICE_URL: http://payment:8081
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: "768M"
+        reservations:
+          cpus: "1.0"
+          memory: "512M"
 
   grafana:
     image: grafana/grafana:latest
@@ -69,6 +99,14 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     depends_on:
       - prometheus
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: "512M"
+        reservations:
+          cpus: "0.5"
+          memory: "256M"
 
 volumes:
   mysql-data:
