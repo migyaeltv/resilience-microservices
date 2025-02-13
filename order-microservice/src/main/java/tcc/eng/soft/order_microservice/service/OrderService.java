@@ -39,8 +39,11 @@ public class OrderService {
         }
 
         catch (FeignException e) {
-            System.err.println("Erro em PaymentService: " + e.getMessage());
-            order.setStatus("FAILED");
+            if (e.status() >= 500) {  // Somente reintentar se for erro 5xx
+                System.err.println("Erro 5xx detectado, aplicando retry: " + e.getMessage());
+                throw e;
+            }
+            order.setStatus("FAILED"); // Se não for 5xx, marca a ordem como falha
         }
 
         orderRepository.save(order);

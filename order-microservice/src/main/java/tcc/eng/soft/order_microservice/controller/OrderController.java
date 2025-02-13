@@ -27,11 +27,17 @@ public class OrderController {
     public ResponseEntity<OrderResponseDTO> createOrder(@RequestBody OrderRequestDTO orderRequest) {
         OrderResponseDTO response = orderService.createOrder(orderRequest);
 
-        if (response.getStatus().equals("PAID")) {
-            return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-        }
+        return switch (response.getStatus()) {
+            case "PAID" -> ResponseEntity.ok(response);  // 200 OK
+
+            case "FAILED" -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);  // 400 Bad Request
+
+            case "PENDING_PAYMENT" ->
+                    ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);  // 500 erro no servidor
+
+            default ->
+                    ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);  // Fallback para erro desconhecido
+        };
     }
 }
 
