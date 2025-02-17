@@ -41,6 +41,37 @@ services:
           cpus: "0.5"
           memory: "256M"
 
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "9114:9114"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - order
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "256M"
+        reservations:
+          cpus: "0.2"
+          memory: "128M"   
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:latest
+    container_name: nginx_exporter
+    ports:
+      - "9113:9113"
+    command: 
+      - "--nginx.scrape-uri=http://nginx:9114/metrics"
+    environment:
+      - NGINX_HOST=nginx
+      - NGINX_PORT=9114 
+    depends_on:
+      - nginx
+
   order:
     build:
       context: ./order-microservice
@@ -58,6 +89,11 @@ services:
       - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=prometheus
       - MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED=true
       - MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS=always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 3  
     deploy:
       resources:
         limits:
