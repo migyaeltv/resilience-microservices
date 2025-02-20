@@ -54,11 +54,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.5"
-          memory: "256M"
+          cpus: "1.5"
+          memory: "1G"
         reservations:
-          cpus: "0.2"
-          memory: "128M"   
+          cpus: "1"
+          memory: "512M"   
   nginx-exporter:
     image: nginx/nginx-prometheus-exporter:latest
     container_name: nginx_exporter
