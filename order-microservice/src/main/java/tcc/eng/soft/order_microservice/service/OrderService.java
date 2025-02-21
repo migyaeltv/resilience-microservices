@@ -1,6 +1,8 @@
 package tcc.eng.soft.order_microservice.service;
 import feign.FeignException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import tcc.eng.soft.order_microservice.domain.Order;
 import tcc.eng.soft.order_microservice.dto.OrderRequestDTO;
 import tcc.eng.soft.order_microservice.dto.OrderResponseDTO;
@@ -40,6 +42,7 @@ public class OrderService {
         catch (FeignException e) {
             System.err.println("Error en PaymentService: " + e.getMessage());
             order.setStatus("FAILED"); // Marcar la orden como fallida si PaymentService falla
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Payment service is unavailable");
         }
 
         orderRepository.save(order);

@@ -23,7 +23,7 @@ public class PaymentController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   //  @CircuitBreaker(name = "paymentService", fallbackMethod = "fallbackPayment")
-    public ResponseEntity<PaymentResponseDTO> processPayment(@RequestBody PaymentRequestDTO request) {
+    public ResponseEntity<PaymentResponseDTO> processPayment(@RequestBody PaymentRequestDTO request) throws InterruptedException {
         return paymentService.processPayment(request);
     }
 
