@@ -1,14 +1,14 @@
 import http from 'k6/http';
-
+import { sleep } from 'k6';
 
 
 export const options = {
   stages: [
     { duration: '30s', target: 100 },
-    { duration: '30s', target: 1000},
-    { duration: '30s', target: 3000 },
-    { duration: '30s', target: 5000 },
-    { duration: '30s', target: 1000},
+    { duration: '30s', target: 500},
+    { duration: '30s', target: 1000 },
+    { duration: '30s', target: 1000 },
+    { duration: '30s', target: 500},
     { duration: '30s', target: 100 },
     { duration: '30s', target: 0 }
   ],
@@ -21,7 +21,7 @@ export default function () {
 
   const customerId = generateCustomerId(); 
 
-  const url = 'http://172.23.128.1:8080/orders';
+  const url = 'http://localhost/orders';
   const payload = JSON.stringify({
     customerId: customerId, 
     amount: Math.random() * 1000, 
@@ -36,5 +36,6 @@ export default function () {
   
 
   console.log(`Customer ID: ${customerId} - Response status: ${res.status}`);
+  sleep(1);
 
 }

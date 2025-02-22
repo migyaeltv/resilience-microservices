@@ -9,7 +9,7 @@ import tcc.eng.soft.payment_microservice.dto.PaymentResponseDTO;
 @Service
 public class PaymentService {
     public ResponseEntity <PaymentResponseDTO> processPayment(PaymentRequestDTO request) throws InterruptedException {
-        Thread.sleep(500);
+        Thread.sleep(200);
         return ResponseEntity.status(HttpStatus.OK).body(new PaymentResponseDTO("PAID", "Pago exitoso"));
     }
 }
