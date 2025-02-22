@@ -39,7 +39,7 @@ public class OrderService {
         }
 
         catch (FeignException e) {
-            if (e.status() == 500) {  // Somente reintentar se for erro 5xx
+            if (e.status() >= 500 && e.status() < 600) {  // Somente reintentar se for erro 5xx
                 System.err.println("Erro 5xx detectado, aplicando retry: " + e.getMessage());
                 throw e;
             }
