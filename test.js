@@ -21,7 +21,7 @@ export default function () {
 
   const customerId = generateCustomerId(); 
 
-  const url = 'http://localhost/orders';
+  const url = 'http://172.23.128.1:8080/orders';
   const payload = JSON.stringify({
     customerId: customerId, 
     amount: Math.random() * 1000, 
